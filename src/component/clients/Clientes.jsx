@@ -1,3 +1,14 @@
+import { useEffect } from "react";
+import clienteAxios from "../../config/axios";
+
 export const Clientes = () => {
-  return <h1>Clientes</h1>;
+  const consultarAPI = async () => {
+    const clientesConsulta = await clienteAxios.get("/clientes");
+    console.log(clientesConsulta);
+  };
+  useEffect(() => {
+    consultarAPI();
+  }, []);
+
+  return <h2>Clientes</h2>;
 };

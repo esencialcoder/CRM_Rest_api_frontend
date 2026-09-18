@@ -1,11 +1,14 @@
-export const Cliente = () => {
+export const Cliente = ({ cliente }) => {
+  const { nombre, apellido, empresa, email, telefono } = cliente;
   return (
     <li className="cliente">
       <div className="info-cliente">
-        <p className="nombre">Juan Pablo De la torre Valdez</p>
-        <p className="empresa">Udemy</p>
-        <p>correo@correo.com</p>
-        <p>Tel: 209109310</p>
+        <p className="nombre">
+          {nombre} {apellido}
+        </p>
+        <p className="empresa">{empresa}</p>
+        <p>{email}</p>
+        <p>{telefono}</p>
       </div>
       <div className="acciones">
         <a href="#" className="btn btn-azul">

@@ -5,13 +5,17 @@ import { Cliente } from "./Cliente";
 export const Clientes = () => {
   const [clientes, setClientes] = useState([]);
 
-  const consultarAPI = async () => {
-    const clientesConsulta = await clienteAxios.get("/clientes");
-
-    setClientes(clientesConsulta.data);
-  };
-
   useEffect(() => {
+    const consultarAPI = async () => {
+      try {
+        const clientesConsulta = await clienteAxios.get("/clientes");
+
+        setClientes(clientesConsulta.data);
+      } catch (error) {
+        console.log("Error al consultar a los clientes", error);
+      }
+    };
+
     consultarAPI();
   }, []);
 
@@ -20,7 +24,7 @@ export const Clientes = () => {
       <h2>Clientes</h2>
       <ul>
         {clientes.map((cliente) => (
-          <Cliente />
+          <Cliente key={cliente._id} cliente={cliente} />
         ))}
       </ul>
     </>

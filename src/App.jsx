@@ -1,7 +1,11 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import { Header } from "./component/layout/Header";
 import { Navegacion } from "./component/layout/Navegacion";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
 import { Clientes } from "./component/clients/Clientes";
+import { NuevoCliente } from "./component/clients/NuevoCliente";
+
 import { Productos } from "./component/products/Productos";
 import { Pedidos } from "./component/pedidos/Pedidos";
 
@@ -15,6 +19,8 @@ function App() {
           <main className="caja-contenido col-9">
             <Routes>
               <Route path="/" element={<Clientes />} />
+              <Route path="/clientes/nuevo" element={<NuevoCliente />} />
+
               <Route path="/productos" element={<Productos />} />
               <Route path="/pedidos" element={<Pedidos />} />
             </Routes>

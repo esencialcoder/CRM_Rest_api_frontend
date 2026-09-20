@@ -212,11 +212,14 @@ h2 {
 .listado-productos,
 .listado-pedidos {
   list-style: none;
+  margin: 0;
   padding: 0;
 }
 .cliente,
 .producto,
-.pedido,
+.pedido {
+  list-style: none;
+}
 .resumen li {
   padding: 2rem 0;
   border-bottom: 1px solid var(--grisClaro);

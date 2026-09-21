@@ -32,7 +32,7 @@ export const EditarCliente = () => {
 
     clienteAxios
       .put(`/clientes/${cliente._id}`, cliente)
-      .then((res) => {
+      .then(() => {
         return Swal.fire(
           "¡Cliente actualizado!",
           "Se actualizó correctamente",

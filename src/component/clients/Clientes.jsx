@@ -17,7 +17,7 @@ export const Clientes = () => {
     };
 
     consultarAPI();
-  }, []);
+  }, [clientes]);
 
   return (
     <>

@@ -8,7 +8,7 @@ export const nuevoCliente = async (req, res) => {
       .status(201)
       .json({ message: "Cliente creado correctamente", cliente });
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    return res.status(400).json({ code: error.code, message: error.message });
   }
 };
 

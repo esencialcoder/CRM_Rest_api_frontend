@@ -1,9 +1,10 @@
-import { useState } from "react";
-import Swal from "sweetalert2";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import clienteAxios from "../../config/axios";
-import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
-export const NuevoCliente = () => {
+export const EditarCliente = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [cliente, setCliente] = useState({
@@ -14,17 +15,31 @@ export const NuevoCliente = () => {
     telefono: "",
   });
 
-  const actualizarCliente = (event) => {
+  useEffect(() => {
+    const consultarAPI = async () => {
+      const clienteConsulta = await clienteAxios.get(`/clientes/${id}`);
+      setCliente(clienteConsulta.data);
+    };
+    consultarAPI();
+  }, [id]);
+
+  const actualizarState = (event) => {
     setCliente({ ...cliente, [event.target.name]: event.target.value });
   };
 
-  const agregarCliente = (event) => {
-    event.preventDefault();
+  const actualizarCliente = (e) => {
+    e.preventDefault();
 
     clienteAxios
-      .post("/clientes", cliente)
+      .put(`/clientes/${cliente._id}`, cliente)
       .then((res) => {
-        return Swal.fire("¡Cliente agregado!", res.data.message, "success");
+        return Swal.fire(
+          "¡Cliente actualizado!",
+          "Se actualizó correctamente",
+          "success",
+        ).then(() => {
+          navigate("/");
+        });
       })
 
       .catch((error) => {
@@ -47,6 +62,7 @@ export const NuevoCliente = () => {
         }
       });
   };
+
   const validarCliente = () => {
     const { nombre, apellido, empresa, email, telefono } = cliente;
     let valido =
@@ -60,9 +76,9 @@ export const NuevoCliente = () => {
 
   return (
     <>
-      <h2>Nuevo cliente</h2>
+      <h2>Editar cliente</h2>
 
-      <form onSubmit={agregarCliente}>
+      <form onSubmit={actualizarCliente}>
         <legend>Rellena todos los campos</legend>
 
         <div className="campo">
@@ -71,7 +87,8 @@ export const NuevoCliente = () => {
             type="text"
             placeholder="Nombre"
             name="nombre"
-            onChange={actualizarCliente}
+            onChange={actualizarState}
+            value={cliente.nombre}
           />
         </div>
 
@@ -81,7 +98,8 @@ export const NuevoCliente = () => {
             type="text"
             placeholder="Apellido"
             name="apellido"
-            onChange={actualizarCliente}
+            onChange={actualizarState}
+            value={cliente.apellido}
           />
         </div>
 
@@ -91,7 +109,8 @@ export const NuevoCliente = () => {
             type="text"
             placeholder="Empresa"
             name="empresa"
-            onChange={actualizarCliente}
+            onChange={actualizarState}
+            value={cliente.empresa}
           />
         </div>
 
@@ -101,7 +120,8 @@ export const NuevoCliente = () => {
             type="email"
             placeholder="Email"
             name="email"
-            onChange={actualizarCliente}
+            onChange={actualizarState}
+            value={cliente.email}
           />
         </div>
 
@@ -111,7 +131,8 @@ export const NuevoCliente = () => {
             type="tel"
             placeholder="Teléfono"
             name="telefono"
-            onChange={actualizarCliente}
+            onChange={actualizarState}
+            value={cliente.telefono}
           />
         </div>
 
@@ -119,7 +140,7 @@ export const NuevoCliente = () => {
           <input
             type="submit"
             className="btn btn-azul"
-            value="Agregar Cliente"
+            value="Guardar cambios"
             disabled={validarCliente()}
           />
         </div>

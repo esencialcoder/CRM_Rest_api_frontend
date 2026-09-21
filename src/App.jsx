@@ -5,6 +5,7 @@ import { Navegacion } from "./component/layout/Navegacion";
 
 import { Clientes } from "./component/clients/Clientes";
 import { NuevoCliente } from "./component/clients/NuevoCliente";
+import { EditarCliente } from "./component/clients/EditarCliente";
 
 import { Productos } from "./component/products/Productos";
 import { Pedidos } from "./component/pedidos/Pedidos";
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Clientes />} />
               <Route path="/clientes/nuevo" element={<NuevoCliente />} />
+              <Route path="/clientes/editar/:id" element={<EditarCliente />} />
 
               <Route path="/productos" element={<Productos />} />
               <Route path="/pedidos" element={<Pedidos />} />
